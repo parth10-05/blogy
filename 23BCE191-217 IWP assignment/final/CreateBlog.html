@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --ff-inter: 'Inter', sans-serif;
+            --section-padding: 50px;
+            --radius-16: 16px;
+            --eerie-black: hsl(225, 9%, 9%);
+            --light-gray-2: hsl(240, 2%, 81%);
+            --blue-ryb: hsl(232, 100%, 60%);
+            --white: hsl(0, 0%, 100%);
+            --transition-1: 0.25s ease;
+        }
+
+        body {
+            font-family: var(--ff-inter);
+            background-color: var(--white);
+            color: var(--eerie-black);
+            padding: var(--section-padding);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: var(--radius-16);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--light-gray-2);
+            border-radius: var(--radius-16);
+            font-size: 1rem;
+            font-weight: 500;
+            outline: none;
+            transition: var(--transition-1);
+        }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--blue-ryb);
+        }
+
+        button[type="submit"] {
+            background-color: var(--eerie-black);
+            color: var(--white);
+            padding: 12px 25px;
+            border: none;
+            border-radius: var(--radius-16);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-1);
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--blue-ryb);
+        }
+
+        #blogPreview {
+            border: 1px solid var(--light-gray-2);
+            padding: 15px;
+            border-radius: var(--radius-16);
+            margin-top: 10px;
+            min-height: 100px;
+            font-size: 1rem;
+            line-height: 1.5;
+            background-color: var(--light-gray-2);
+        }
+
+        .char-count {
+            font-size: 0.9rem;
+            color: var(--light-gray-2);
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header section" data-header>
+        <div class="container">
+
+            <a href="index.html" class="logo">
+                <img src="./assets/images/logo.svg" width="129" height="40" alt="BlogIt logo">
+            </a>
+
+            <nav class="navbar" data-navbar>
+                <ul class="navbar-list">
+
+                    <li class="navbar-item">
+                        <a href="index.html" class="navbar-link hover:underline" data-nav-link>Home</a>
+                    </li>
+
+                    <li class="navbar-item">
+                        <a  class="navbar-link hover:underline" href="MyBlogs.html" data-nav-link>My Blogs</a>
+                    </li>                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Create a Blog</h1>
+
+        <form id="blogForm">
+            <div class="form-group">
+                <label for="blogTitle">Blog Title:</label>
+                <input type="text" id="blogTitle" name="blogTitle" required>
+            </div>
+
+            <div class="form-group">
+                <label for="blogContent">Blog Content:</label>
+                <textarea id="blogContent" name="blogContent" rows="10" required></textarea>
+                <div class="char-count" id="charCount">0 characters</div>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select id="category" name="category">
+                    <option value="technology">Technology</option>
+                    <option value="creativity">Creativity</option>
+                    <option value="funny">Funny</option>
+                    <option value="daily">Daily</option>
+                    <option value="lifestyle">Lifestyle</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <h3>Preview:</h3>
+                <div id="blogPreview"></div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#blogContent').on('input', function () {
+                var content = $(this).val();
+                var charCount = content.length;
+                $('#charCount').text(charCount + ' characters');
+
+                $('#blogPreview').html(content);
+            });
+
+            $('#blogForm').on('submit', function () {
+
+
+                var formData = $(this).serializeArray();
+                console.log(formData);
+
+                $(this)[0].reset();
+                $('#charCount').text('0 characters');
+                $('#blogPreview').html('');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
